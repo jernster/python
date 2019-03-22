@@ -3,7 +3,7 @@ import os
 import sys
 from alpha_vantage.timeseries import TimeSeries
 
-# PVTL CLGX, GOOG AMZN NFLX APPL IBM GE CAT AA FB YHOO HPE
+# PVTL CLGX GOOG AMZN NFLX APPL IBM GE CAT AA FB YHOO HPE
 
 parser = argparse.ArgumentParser(description="Generate various flavors of stock data")
 parser.add_argument('-s', '--symbol', nargs='+', help="stock symbol", required=True) 
@@ -24,11 +24,9 @@ def output_struct(data, symbol):
             v = ",".join(v)
             print(v)
         elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
+            s = '"{}"'.format(symbol[0])
             v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
+            v.insert(0, s)
             v = ",".join(v)
             print(v)
 
