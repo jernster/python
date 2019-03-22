@@ -16,6 +16,22 @@ stock_type = args.type
 
 ts = TimeSeries(key=os.environ['AV_API_KEY'], output_format='csv')
 
+def output_struct(data, symbol):
+    for i, v in enumerate(data):
+        if i == 0:
+            s = 'symbol'
+            v.insert(0, s)
+            v = ",".join(v)
+            print(v)
+        elif i > 0:
+            s = ''.join(symbol) 
+            symbol = '{}'.format(s)
+            v[0] = '"{}"'.format(v[0])
+            v[0] = '{}'.format(v[0])
+            v.insert(0, symbol)
+            v = ",".join(v)
+            print(v)
+
 def batch(symbol):
     data, _ = ts.get_batch_stock_quotes(symbols=symbol)
 
@@ -26,92 +42,27 @@ def intraday(symbol):
     data, _ = ts.get_intraday(
     symbol=symbol, interval='1min', outputsize='compact') #outputsize='compact' and full 
 
-    for i, v in enumerate(data):
-        if i == 0:
-            s = 'symbol'
-            v.insert(0, s)
-            v = ",".join(v)
-            print(v)
-        elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
-            v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
-            v = ",".join(v)
-            print(v)
+    output_struct(data, symbol)
 
 def weekly(symbol):
     data, _ = ts.get_weekly(symbol=symbol) 
 
-    for i, v in enumerate(data):
-        if i == 0:
-            s = 'symbol'
-            v.insert(0, s)
-            v = ",".join(v)
-            print(v)
-        elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
-            v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
-            v = ",".join(v)
-            print(v)
+    output_struct(data, symbol)
 
 def weekly_adjusted(symbol):
     data, _ = ts.get_weekly_adjusted(symbol=symbol) 
 
-    for i, v in enumerate(data):
-        if i == 0:
-            s = 'symbol'
-            v.insert(0, s)
-            v = ",".join(v)
-            print(v)
-        elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
-            v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
-            v = ",".join(v)
-            print(v)
+    output_struct(data, symbol)
 
 def monthly(symbol):
     data, _ = ts.get_monthly(symbol=symbol) 
 
-    for i, v in enumerate(data):
-        if i == 0:
-            s = 'symbol'
-            v.insert(0, s)
-            v = ",".join(v)
-            print(v)
-        elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
-            v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
-            v = ",".join(v)
-            print(v)
+    output_struct(data, symbol)
 
 def monthly_adjusted(symbol):
     data, _ = ts.get_monthly_adjusted(symbol=symbol) 
 
-    for i, v in enumerate(data):
-        if i == 0:
-            s = 'symbol'
-            v.insert(0, s)
-            v = ",".join(v)
-            print(v)
-        elif i > 0:
-            s = ''.join(symbol) 
-            symbol = '{}'.format(s)
-            v[0] = '"{}"'.format(v[0])
-            v[0] = '{}'.format(v[0])
-            v.insert(0, symbol)
-            v = ",".join(v)
-            print(v)
+    output_struct(data, symbol)
 
 if __name__ == "__main__":
     if stock_type == 'batch':
